@@ -4,7 +4,8 @@ version := "0.1"
 
 scalaVersion := "2.10.3"
 
-scalacOptions := Seq("-encoding", "utf8",
+scalacOptions := Seq(
+  "-encoding", "utf8",
   "-target:jvm-1.7",
   "-feature",
   "-language:implicitConversions",
@@ -15,7 +16,8 @@ scalacOptions := Seq("-encoding", "utf8",
   "-Ywarn-adapted-args"
 )
 
-resolvers ++= Seq("Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases",
+resolvers ++= Seq(
+  "Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases",
   "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/",
   "Spray Repository" at "http://repo.spray.io/",
   "Spray Nightlies" at "http://nightlies.spray.io/")

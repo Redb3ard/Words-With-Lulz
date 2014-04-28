@@ -3,22 +3,22 @@ package com.mariolopezjr.wwl
 import akka.actor._
 
 import spray.routing._
+import com.mariolopezjr.wwl.game.rest.GameService
 
+/**
+ * Boiler plate code
+ */
 object ApiActor {
   def props = Props[ApiActor]
 }
 
-class ApiActor extends HttpServiceActor with ActorLogging {
+/**
+ * REST API
+ */
+class ApiActor extends HttpServiceActor with ActorLogging with GameService {
   def receive = runRoute(
     pathPrefix("wwl") {
-      path("games") {
-        get {
-          complete("-- none --\n")
-        } ~
-          put {
-            complete("foo, bar!")
-          }
-      }
+      gameService
     }
   )
 }
