@@ -24,13 +24,15 @@ trait GameRestService extends HttpService {
         decompressRequest() {
           entity(as[NewGameRequest]) { newGameRequest =>
             detach() {
-              // todo: error handling
-              val game = gameService.createNewGame(gameId, newGameRequest)
-              complete(
-                new NewGameResponse(
-                  true,
-                  game.name,
-                  game.player1.letters))
+              // TODO: exception handling, just return a 201 if successfully created
+              gameService.createNewGame(gameId, newGameRequest).fold(
+                error => complete("TODO: write an exception handler"),
+                game => complete(
+                  new NewGameResponse(
+                    true,
+                    game.name,
+                    game.player1.letters))
+              )
             }
           }
         }

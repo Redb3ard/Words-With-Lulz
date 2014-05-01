@@ -7,18 +7,26 @@ import com.mariolopezjr.wwl.game.rest.NewGameRequest
  */
 class GameService {
   val gameDataStore: GameDataStore = new InMemoryGameDataStore()
+  val letterGenerator = new LetterGenerator()
 
 
   /**
    * Create a new game
    * @param gameId String the name of the game
    * @param request NewGameRequest new game details
-   * @return Game
+   * @return Either[String, Game] Game if it's successfully created, error message otherwise
    */
-  def createNewGame(gameId: String, request: NewGameRequest): Game = {
-    // todo: get actual player name and generate random letters
-    val player1 = new Player("player1", Array('A', 'B', 'C', 'D', 'E', 'F', 'G'))
+  def createNewGame(gameId: String, request: NewGameRequest): Either[String, Game] = {
+    // create players
+    val player1 = Player(request.players(0), Array.fill(7) {letterGenerator.letter})
+    val player2 = Player(request.players(1), Array.fill(7) {letterGenerator.letter})
 
-    new Game(gameId, player1, null, null)
+    // create and store game data
+    val game = Game(gameId, player1, player2, Board())
+    if (game :: gameDataStore) {
+      Right(game)
+    } else {
+      Left("Game already exists.")
+    }
   }
 }

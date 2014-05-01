@@ -12,5 +12,5 @@ trait GameDataStore {
   def game(gameId: String): Game
 
   /** Adds a game to the data store */
-  def ::(game: Game)
+  def ::(game: Game): Boolean
 }

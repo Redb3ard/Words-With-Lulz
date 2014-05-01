@@ -20,7 +20,12 @@ class InMemoryGameDataStore extends GameDataStore {
   }
 
   /** Adds a game to the data store */
-  override def ::(game: Game): Unit = {
-    inMemoryGames.put(game.name, game)
+  override def ::(game: Game): Boolean = {
+    if (inMemoryGames.contains(game.name)) {
+      false
+    } else {
+      inMemoryGames.put(game.name, game)
+      true
+    }
   }
 }
